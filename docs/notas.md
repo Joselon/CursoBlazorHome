@@ -21,3 +21,23 @@
 ## Clase 8
 
 - No podemos depender de variables que nos trae el componente que nos contiene para el ciclo de vida y el renderizado del propio componente.
+- Tenemos que hacer `override` para redifinir los metodos que hereda de su clase Component para el **ciclo de vida** como `OnParametersSet`
+
+## Clase 9
+
+- Que es un **EditForm**. Es un componente de blazor para usar formularios html, correspondiente a `<form>`. Da soporte para validacion y submit.
+- Enlace bidireccional entre el formulario y una clase Modelo.
+- Echar un vistazo a los elementos que tiene blazor por defecto (sin mudBlazor):
+  - InputCheckBox
+  - InputDate`<TValue>`
+  - InputFile
+  - InputNumber`<TValue>`
+  - InputRadio`<TValue>`
+  - InputSelect`<TValue>`
+  - ...
+
+## Notas Git
+
+Nuevo repo:
+
+- Después de git remote add origin `https://github.com/Joselon/CursoBlazorHome.git` antes de push: `git push --set-upstream origin master`

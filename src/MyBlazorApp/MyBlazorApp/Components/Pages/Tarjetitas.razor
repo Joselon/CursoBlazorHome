@@ -1,0 +1,34 @@
+﻿@page "/tarjetitas"
+@using MyBlazorApp.ViewModels
+@rendermode InteractiveServer
+
+<PageTitle>Tarjetitas</PageTitle>
+
+<h1>Tarjetitas</h1>
+
+<hr />
+
+Edita el id de la tarjeta:
+
+<ol>
+    <li>Ciencias</li>
+    <li>Letras</li>
+</ol>
+
+<EditForm Model="Tarjeta">
+    <InputDate  @bind-Value="Tarjeta.FechaCreacion" placeholder="dd/MM/aa" />
+    <InputNumber @bind-Value="Tarjeta.Id" placeholder="nn" />
+    <InputText  @bind-Value="Tarjeta.Pregunta" placeholder="Pregunta" />
+    <InputText @bind-Value="Tarjeta.Respuesta" placeholder="Respuesta" />
+    <InputText @bind-Value="Tarjeta.Tema" placeholder="Tema" />
+    <!--<button class="btn btn-primary mt-2" @onclick="PedirTarjeta">Pedir Tarjeta</button>-->
+</EditForm>
+
+<p> El código de la tarjeta es @Tarjeta.internalId</p>
+
+
+@code {
+
+    private TarjetaPregunta Tarjeta { get; set; } = new();
+
+}
