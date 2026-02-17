@@ -8,7 +8,7 @@ namespace MyBlazorApp.ViewModels //Candidato a biblioteca de clases propia
         [Range(0, 99)]
         public int Id { get; set; }
 
-        public int internalId => 1000 + Id;
+        public int codeId => 1000 + Id;
         [MaxLength(100)]
         [MinLength(4)]
         public string Pregunta { get; set; }

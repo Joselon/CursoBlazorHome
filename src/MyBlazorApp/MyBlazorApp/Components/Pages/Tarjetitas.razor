@@ -10,27 +10,38 @@
 
 Edita el id de la tarjeta:
 
+<p> El código de la tarjeta es @Tarjeta.codeId</p>
+
+<EditForm FormName="EditTarjetaForm" Model="Tarjeta" class="d-flex flex-column gap-sm-0">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+   
+    <label>Creado en:</label>
+    <InputDate class="form-control" @bind-Value="Tarjeta.FechaCreacion" placeholder="dd/MM/aa" />
+
+    <label>Id:</label>
+    <InputNumber class="form-control" @bind-Value="Tarjeta.Id" placeholder="nn" />
+
+
+    <label>Pregunta:</label>
+    <InputText class="form-control" @bind-Value="Tarjeta.Pregunta" placeholder="Pregunta" />
+
+
+    <label>Respuesta:</label>
+        <InputText class="form-control" @bind-Value="Tarjeta.Respuesta" placeholder="Respuesta" />
+
+
+    <label>Tema:</label>
+    <InputText class="form-control" @bind-Value="Tarjeta.Tema" placeholder="Tema" />
+
+        
+    <!--<button class="btn btn-primary mt-2" @onclick="PedirTarjeta">Pedir Tarjeta</button>-->
+</EditForm>
+
+
 <ol>
     <li>Ciencias</li>
     <li>Letras</li>
 </ol>
-
-<EditForm Model="Tarjeta">
-    <DataAnnotationsValidator></DataAnnotationsValidator>
-    <InputDate  @bind-Value="Tarjeta.FechaCreacion" placeholder="dd/MM/aa" />
-    <DataAnnotationsValidator></DataAnnotationsValidator>
-    <InputNumber @bind-Value="Tarjeta.Id" placeholder="nn" />
-    <DataAnnotationsValidator></DataAnnotationsValidator>
-    <InputText  @bind-Value="Tarjeta.Pregunta" placeholder="Pregunta" />
-    <DataAnnotationsValidator></DataAnnotationsValidator>
-    <InputText @bind-Value="Tarjeta.Respuesta" placeholder="Respuesta" />
-    <DataAnnotationsValidator></DataAnnotationsValidator>
-    <InputText @bind-Value="Tarjeta.Tema" placeholder="Tema" />
-    <!--<button class="btn btn-primary mt-2" @onclick="PedirTarjeta">Pedir Tarjeta</button>-->
-</EditForm>
-
-<p> El código de la tarjeta es @Tarjeta.internalId</p>
-
 
 @code {
 
