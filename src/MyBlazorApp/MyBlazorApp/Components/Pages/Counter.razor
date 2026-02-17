@@ -1,0 +1,47 @@
+﻿@page "/counter"
+@rendermode InteractiveServer
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+<hr />
+
+<p role="status">Cuenta Corriente :) -> @localCount  mil millones de $</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">¡Tocame!</button>  
+@code {
+    [Parameter]
+    public int CurrentCount { get; set; }
+
+    private int localCount = 0;
+
+    //Ciclo de vida del componente: No se estaba actualizando al depender de CurrentCount, que se actualizaba en el padre pero no se reflejaba en el hijo, entonces se inicializa localCount con el valor de CurrentCount al cargar el componente para mantener su estado
+    protected override void OnParametersSet()
+    {
+        if(localCount == 0)
+        {
+            localCount = CurrentCount;
+        }
+    }
+
+    /* <!-- Primer ejemplo EventCallback en componente Counter-->
+    [Parameter]
+    public EventCallback OnCounterPares { get; set; }
+
+    private async void IncrementCount()
+    {
+        CurrentCount++;
+        if (CurrentCount % 2 == 0)
+        {
+            await OnCounterPares.InvokeAsync();
+        }
+    }*/
+    [Parameter]
+    public EventCallback<int> OnCurrentCountUpdated { get; set; }
+ 
+    private async void IncrementCount()
+    {
+        localCount++;
+        await OnCurrentCountUpdated.InvokeAsync(localCount);
+    }
+}
