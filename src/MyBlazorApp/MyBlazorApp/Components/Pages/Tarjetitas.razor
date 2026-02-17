@@ -16,10 +16,15 @@ Edita el id de la tarjeta:
 </ol>
 
 <EditForm Model="Tarjeta">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
     <InputDate  @bind-Value="Tarjeta.FechaCreacion" placeholder="dd/MM/aa" />
+    <DataAnnotationsValidator></DataAnnotationsValidator>
     <InputNumber @bind-Value="Tarjeta.Id" placeholder="nn" />
+    <DataAnnotationsValidator></DataAnnotationsValidator>
     <InputText  @bind-Value="Tarjeta.Pregunta" placeholder="Pregunta" />
+    <DataAnnotationsValidator></DataAnnotationsValidator>
     <InputText @bind-Value="Tarjeta.Respuesta" placeholder="Respuesta" />
+    <DataAnnotationsValidator></DataAnnotationsValidator>
     <InputText @bind-Value="Tarjeta.Tema" placeholder="Tema" />
     <!--<button class="btn btn-primary mt-2" @onclick="PedirTarjeta">Pedir Tarjeta</button>-->
 </EditForm>
