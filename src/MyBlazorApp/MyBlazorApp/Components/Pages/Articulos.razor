@@ -1,27 +1,52 @@
 ﻿@page "/articulos"
-@rendermode InteractiveServer
 @using MyBlazorApp.ViewModels
 @inject MyBlazorApp.Services.IArticulosService ArticulosSvc
-
+@using MudBlazor
+@rendermode InteractiveServer
 
 <PageTitle>Articulos</PageTitle>
 
 <h1>Artículos</h1>
 
+<MudTable Items="articulos" Dense="true" Hover="true" Striped="true">
+    <HeaderContent>
+        <MudTh>Id</MudTh>
+        <MudTh>Descripción</MudTh>
+        <MudTh>Precio</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="Descripción">@context.Descripcion</MudTd>
+        <MudTd DataLabel="Precio">@context.Precio</MudTd>
+    </RowTemplate>
+</MudTable>
 
-@if (articulos == null)
-{
-    <p>Cargando...</p>
-}
-else
-{
-    <ul>
-        @foreach (var item in articulos)
-        {
-            <li>@item.Id - @item.Descripcion - @item.Precio €</li>
-        }
-    </ul>
-}
+<!--<MudTable T="Articulo"
+          ServerData="LoadServerData"
+          Dense="true"
+          Hover="true"
+          Striped="true"
+          RowsPerPage="10"
+          RowsPerPageOptions="new int[] { 10, 20, 50 }">
+
+    <HeaderContent>
+        <MudTh>Id</MudTh>
+        <MudTh>Descripción</MudTh>
+        <MudTh>Precio</MudTh>
+    </HeaderContent>
+
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="Descripción">@context.Descripcion</MudTd>
+        <MudTd DataLabel="Precio">@context.Precio</MudTd>
+    </RowTemplate>
+
+    <PagerContent>
+        <MudTablePager InfoFormat="@("{0}-{1} de {2}")"
+                       RowsPerPageString="Filas por página:" />
+    </PagerContent>
+
+</MudTable>-->
 
 <hr />
 
@@ -54,6 +79,22 @@ Edite el Artículo:
     {
         articulos = await ArticulosSvc.GetAllAsync();
     }
+
+  /*  private async Task<TableData<Articulo>> LoadServerData(TableState state, CancellationToken cancellationToken)
+    {
+        // MudBlazor pasa página base 0, nuestro método usa base 1
+        int pageToLoad = state.Page + 1;
+        int pageSize = state.PageSize;
+
+        var pagina = await ArticulosSvc.GetPageAsync(pageToLoad, pageSize);
+
+        return new TableData<Articulo>
+        {
+            Items = pagina.Data,
+            TotalItems = pagina.TotalRecords
+        };
+    }*/
+
 
 }
 

@@ -20,5 +20,26 @@ namespace MyBlazorApp.Services
                                  .AsNoTracking()
                                  .ToListAsync();
         }
+
+        public async Task<Pagina<Articulo>> GetPageAsync(int page, int pageSize)
+        {
+            var query = _context.Articulos.AsNoTracking();
+
+            var total = await query.CountAsync();
+
+            var items = await query
+                .OrderBy(a => a.Id)          // ordenar para consistencia
+                .Skip((page - 1) * pageSize) // saltar páginas
+                .Take(pageSize)              // tomar solo pageSize elementos
+                .ToListAsync();
+
+            return new Pagina<Articulo>
+            {
+                Page = page,
+                PageSize = pageSize,
+                TotalRecords = total,
+                Data = items
+            };
+        }
     }
 }

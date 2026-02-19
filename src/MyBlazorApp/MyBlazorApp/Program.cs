@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using MudBlazor.Services;
 using MyBlazorApp.Components;
 using MyBlazorApp.Data;
 using MyBlazorApp.Services;
@@ -16,6 +17,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddSingleton<ITareasService, TareasEnMemoria>();
 builder.Services.AddScoped<IArticulosService, ArticulosDbService>();
+
+builder.Services.AddMudServices();
 
 var app = builder.Build();
 

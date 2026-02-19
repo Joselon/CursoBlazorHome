@@ -12,6 +12,7 @@ namespace MyBlazorApp.ViewModels //Candidato a biblioteca de clases propia
         [Column("mar_codigo")]
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "Campo obligatorio")]
         [MaxLength(100)]
         [MinLength(4)]
         [Column("mar_descripcion")]
