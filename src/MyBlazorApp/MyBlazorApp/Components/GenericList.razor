@@ -1,0 +1,29 @@
+@typeparam TItem
+
+<h3>GenericList</h3>
+
+@if (Items.Any())
+{
+    <ul>
+        @foreach (var item in Items)
+        {
+            @ItemTemplate(item)
+        }
+    </ul>
+}
+
+else
+{
+    @EmptyTemplate
+}
+
+
+
+@code {
+    [Parameter]
+    public IEnumerable<TItem> Items { get; set; } = [];
+    [Parameter]
+    public RenderFragment<TItem> ItemTemplate { get; set; }
+    [Parameter]
+    public RenderFragment EmptyTemplate { get; set; }
+}

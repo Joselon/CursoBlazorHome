@@ -1,0 +1,32 @@
+@using MyBlazorApp.Models
+@rendermode InteractiveServer
+
+@if (ToDos is not null)
+{
+    <table>
+        @foreach (var toDo in ToDos)
+        {
+            if (toDo.FechaRealizado is null)
+            {
+                <tr>
+                    <td>@toDo.Titulo</td>
+                    <td><button type="button" class="btn btn-dark" @onclick="() => RealizarPulsado (toDo.Id)">Marcar como realizada</button> </td>
+                </tr>
+            }
+
+        }
+    </table>
+}
+
+@code {
+    [Parameter]
+    public IEnumerable<ToDoTarea>? ToDos { get; set; }
+
+    [Parameter]
+    public EventCallback<int> OnRealizarPulsado { get; set; }
+
+    private void RealizarPulsado(int id)
+    {
+        OnRealizarPulsado.InvokeAsync(id);
+    }
+}

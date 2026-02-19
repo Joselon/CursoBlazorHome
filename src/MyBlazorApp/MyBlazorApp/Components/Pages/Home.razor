@@ -1,4 +1,7 @@
 ﻿@page "/"
+@using MyBlazorApp.Models
+@using MyBlazorApp.Services
+@inject ITareasService TareasSvc
 @rendermode InteractiveServer
 
 <PageTitle>Home</PageTitle>
@@ -7,11 +10,11 @@
 
 <hr />
 
-<p>
+<div style="background-color:grey">
     @* <Counter CurrentCount="value" OnCounterPares="OnContandorPar"></Counter> <!-- Primer ejemplo EventCallback en componente Counter-->*@
 
     <Counter CurrentCount="value" OnCurrentCountUpdated="OnContandorActualizado"></Counter>
-</p>
+</div>
 
 <hr />
 
@@ -20,10 +23,20 @@
 <p>El valor de <strong>name</strong> es : @name <mark>(se actualiza con el evento update del componente counter a su localCount)</mark></p>
 <p>...  y <strong>value</strong> es : @value <mark>(lo que le pasamos al componente counter OnParametersSet Ciclo de vida)</mark></p>
 
-
 Home Button:
 
 <button class="btn btn-primary" @onclick="RestartCount">Paga!</button>
+
+<hr />
+
+<Alerta Text="Ha ocurrido algún error"></Alerta>
+
+<hr />
+
+<h2>Lista de Tareas</h2>
+<ListaDeTareas ToDos="_toDos"></ListaDeTareas>
+
+<hr />
 
 @code {
     private int value = 47;
@@ -45,6 +58,15 @@ Home Button:
     private void OnContandorActualizado(int newValue)
     {
         name = newValue.ToString();
-      //  value = newValue; //Esto no lo debemos hacer
+        //  value = newValue; //Esto no lo debemos hacer
+    }
+
+    /* Todolist */
+
+    private IEnumerable<ToDoTarea> _toDos = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        _toDos = await TareasSvc.GetAll();
     }
 }

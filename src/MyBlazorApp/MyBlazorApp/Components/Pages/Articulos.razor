@@ -1,0 +1,40 @@
+﻿@page "/articulos"
+@rendermode InteractiveServer
+@using MyBlazorApp.ViewModels
+
+
+<PageTitle>Articulos</PageTitle>
+
+<h1>Artículos</h1>
+
+<hr />
+
+Edite el Artículo:
+
+<p> <small>El código interno es @Articulo.codeId </small></p>
+
+<EditForm FormName="EditArticuloForm" Model="Articulo" class="d-flex flex-column gap-sm-0">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+   
+    <label>Creado en:</label>
+    <InputDate class="form-control" @bind-Value="Articulo.FechaCreacion" placeholder="dd/MM/aa" />
+
+    <label>Id:</label>
+    <InputNumber class="form-control" @bind-Value="Articulo.Id" placeholder="nn" />
+    <ValidationMessage For="() => Articulo.Id"></ValidationMessage>
+
+    <label>Articulo:</label>
+    <InputText class="form-control" @bind-Value="Articulo.Descripcion" placeholder="Descripcion" />
+
+    <label>Precio:</label>
+    <InputNumber class="form-control" @bind-Value="Articulo.Precio" placeholder="Precio" />
+    <ValidationMessage For="() => Articulo.Precio"></ValidationMessage>
+</EditForm>
+
+
+@code {
+
+    private Articulo Articulo { get; set; } = new();
+
+}
+

@@ -1,0 +1,34 @@
+@page "/users"
+@using MyBlazorApp.Models
+@rendermode InteractiveServer
+
+<h3>Users</h3>
+
+<UsersList Users="_users">
+    <Contenido>
+        <li>@context.Name - @context.Surname</li>
+    </Contenido>
+    <EmptyTemplate>
+        <p> No se han encontrado usuarios</p>
+    </EmptyTemplate>
+</UsersList>
+
+<GenericList Items="_users">
+    <ItemTemplate Context="user">
+        <li>@user.Name - @user.Surname</li>
+    </ItemTemplate>
+    <EmptyTemplate>
+        <p> No se han encontrado usuarios</p>
+    </EmptyTemplate>
+</GenericList>
+
+@code {
+    private readonly List<User> _users = [];
+
+    protected override void OnInitialized()
+    {
+        //Podriamos traer de bd o de una api
+        _users.Add(new User(1, "Manolito", "Perez"));
+        _users.Add(new User(2, "Pepito", "Palotes"));
+    }
+}

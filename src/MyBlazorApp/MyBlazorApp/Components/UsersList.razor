@@ -1,0 +1,28 @@
+@using MyBlazorApp.Models
+@rendermode InteractiveServer
+
+<h3>UserList</h3>
+
+@if (Users.Any())
+{
+    <ul>
+        @foreach (var user in Users)
+        {
+            @Contenido(user)
+        }
+    </ul>
+}
+
+else
+{
+    @EmptyTemplate
+}
+
+@code {
+    [Parameter]
+    public IEnumerable<User> Users { get; set; } = [];
+    [Parameter]
+    public RenderFragment<User> Contenido { get; set; }
+    [Parameter]
+    public RenderFragment EmptyTemplate { get; set; }
+}
