@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using MyBlazorApp.Components;
+using MyBlazorApp.Data;
 using MyBlazorApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,7 +9,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("PgConnection")));
+
 builder.Services.AddSingleton<ITareasService, TareasEnMemoria>();
+builder.Services.AddScoped<IArticulosService, ArticulosDbService>();
 
 var app = builder.Build();
 

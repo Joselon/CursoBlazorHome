@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  postgres16:
+    container_name: postgres16
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: Secret0
+      POSTGRES_USER: pgadmin
+      POSTGRES_DB: presentacion
+    ports:
+      - "5432:5432"
+    volumes:
+      - cursoblazor_data:/var/lib/postgresql/data
+      - ./init:/docker-entrypoint-initdb.d
+  
+  adminer:
+    container_name: adminer
+    image: adminer:4.8.1
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      ADMINER_DEFAULT_SERVER: "postgres16"
+      ADMINER_DEFAULT_DB_DRIVER: "pgsql"
+      ADMINER_DEFAULT_DB_NAME: "presentacion"
+volumes:
+  cursoblazor_data: {}
