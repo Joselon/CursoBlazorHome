@@ -2,8 +2,6 @@
 @using MyBlazorApp.ViewModels
 @inject MyBlazorApp.Services.IArticulosService ArticulosSvc
 
-
-
 <PageTitle>Articulos</PageTitle>
 
 <h1>Artículos</h1>
@@ -27,6 +25,8 @@
           Hover="true"
           Striped="true"
           RowsPerPage="10"
+          SelectOnRowClick="true"
+          @bind-SelectedItem="selectedArticulo"
           RowsPerPageOptions="new int[] { 10, 20, 50 }">
 
     <HeaderContent>
@@ -52,29 +52,50 @@
 
 Edite el Artículo:
 
-<EditForm FormName="EditArticuloForm" Model="Articulo" class="d-flex gap-sm-0">
+<EditForm FormName="EditArticuloForm" Model="_articulo" OnValidSubmit="GuardarArticulo" class="d-flex gap-sm-0">
     <DataAnnotationsValidator></DataAnnotationsValidator>
    
     <label>Id:</label>
-    <InputNumber class="form-control" @bind-Value="Articulo.Id" placeholder="nn" />
-    <ValidationMessage For="() => Articulo.Id"></ValidationMessage>
+    <InputNumber class="form-control" @bind-Value="_articulo.Id" placeholder="nn" />
+    <ValidationMessage For="() => _articulo.Id"></ValidationMessage>
 
     <label>Articulo:</label>
-    <InputText class="form-control" @bind-Value="Articulo.Descripcion" placeholder="Descripcion" />
+    <InputText class="form-control" @bind-Value="_articulo.Descripcion" placeholder="Descripcion" />
 
     <label>Precio:</label>
-    <InputNumber class="form-control" @bind-Value="Articulo.Precio" placeholder="Precio" />
+    <InputNumber class="form-control" @bind-Value="_articulo.Precio" placeholder="Precio" />
 
-    <ValidationMessage For="() => Articulo.Precio"></ValidationMessage>
+    <ValidationMessage For="() => _articulo.Precio"></ValidationMessage>
 </EditForm>
 
 
 @code {
 
-    private Articulo Articulo { get; set; } = new Articulo();
+    private Articulo _articulo { get; set; } = new Articulo();
+    private Articulo? _selectedArticulo;
 
-    private List<Articulo>? articulos;
+    private Articulo? selectedArticulo
+    {
+        get => _selectedArticulo;
+        set
+        {
+            _selectedArticulo = value;
+
+            if (value is null)
+                return;
+
+            _articulo = new Articulo
+            {
+                Id = value.Id,
+                Descripcion = value.Descripcion,
+                Precio = value.Precio
+            };
+        }
+    }
+
     /*
+    private List<Articulo>? articulos;
+    
     protected override async Task OnInitializedAsync()
     {
         articulos = await ArticulosSvc.GetAllAsync();
@@ -93,6 +114,29 @@ Edite el Artículo:
             Items = pagina.Data,
             TotalItems = pagina.TotalRecords
         };
+    }
+    /*
+    private void OnRowClick(TableRowClickEventArgs<Articulo> args)
+    {
+        selectedArticulo = args.Item;
+
+        // Clonamos para no editar directamente la instancia de la tabla
+        _articulo = new Articulo
+        {
+            Id = selectedArticulo.Id,
+            Descripcion = selectedArticulo.Descripcion,
+            Precio = selectedArticulo.Precio
+        };
+    }*/
+
+    private async Task GuardarArticulo()
+    {
+       /* if (_articulo.Id == 0)
+            await ArticulosSvc.AddAsync(_articulo);
+        else
+            await ArticulosSvc.UpdateAsync(_articulo);
+
+         _articulo = new Articulo(); */
     }
 
 
